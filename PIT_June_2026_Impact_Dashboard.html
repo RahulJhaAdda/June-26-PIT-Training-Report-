@@ -1,0 +1,423 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>PIT June 2026 — Impact Report | Adda247</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=Poppins:wght@600;700;800;900&display=swap" rel="stylesheet">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.min.js"></script>
+<style>
+:root{--red:#E42527;--rg:rgba(228,37,39,0.25);--green:#10B981;--gg:rgba(16,185,129,0.18);--amber:#F59E0B;--rose:#F43F5E;--blue:#3B82F6;--purple:#8B5CF6;--cyan:#06B6D4;--bg:#030712;--card:rgba(255,255,255,0.035);--cb:rgba(255,255,255,0.06);--glass:rgba(255,255,255,0.02);--gb:rgba(255,255,255,0.08);--t:#F8FAFC;--m:#64748B;--m2:#94A3B8;}
+*{margin:0;padding:0;box-sizing:border-box;}html{scroll-behavior:smooth;}
+body{font-family:'Inter',sans-serif;background:var(--bg);color:var(--t);line-height:1.6;overflow-x:hidden;min-height:100vh;}
+
+/* ===== ANIMATED BACKGROUND ===== */
+.bg-mesh{position:fixed;inset:0;z-index:0;pointer-events:none;overflow:hidden;}
+.bg-orb{position:absolute;border-radius:50%;filter:blur(80px);opacity:.12;animation:orbFloat 20s ease-in-out infinite;}
+.bg-orb.o1{width:600px;height:600px;background:var(--red);top:-10%;left:-10%;animation-duration:25s;}
+.bg-orb.o2{width:500px;height:500px;background:var(--blue);bottom:-15%;right:-10%;animation-duration:30s;animation-delay:-5s;}
+.bg-orb.o3{width:400px;height:400px;background:var(--purple);top:40%;left:50%;animation-duration:22s;animation-delay:-10s;opacity:.07;}
+.bg-orb.o4{width:350px;height:350px;background:var(--cyan);top:10%;right:20%;animation-duration:28s;animation-delay:-15s;opacity:.06;}
+@keyframes orbFloat{0%,100%{transform:translate(0,0) scale(1);}25%{transform:translate(60px,-40px) scale(1.1);}50%{transform:translate(-30px,60px) scale(0.95);}75%{transform:translate(40px,20px) scale(1.05);};}
+.bg-grid{position:fixed;inset:0;z-index:0;pointer-events:none;background-image:linear-gradient(rgba(255,255,255,0.015) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,0.015) 1px,transparent 1px);background-size:60px 60px;}
+
+/* ===== SCROLL TOP ===== */
+.stt{position:fixed;bottom:28px;right:28px;width:46px;height:46px;background:linear-gradient(135deg,var(--red),#b91c1c);border:1px solid rgba(255,255,255,0.15);border-radius:14px;color:#fff;font-size:18px;cursor:pointer;z-index:999;display:none;box-shadow:0 4px 30px var(--rg),0 0 0 1px rgba(255,255,255,0.05);transition:all .3s;backdrop-filter:blur(8px);}.stt:hover{transform:translateY(-3px) scale(1.05);box-shadow:0 8px 40px var(--rg);}
+
+/* ===== TICKER ===== */
+.ticker{background:linear-gradient(90deg,var(--red),#b91c1c,var(--red));background-size:200% 100%;animation:tickerShine 4s ease-in-out infinite;padding:8px 20px;text-align:center;font-size:11.5px;font-weight:600;color:#fff;letter-spacing:.3px;z-index:10;position:relative;}
+@keyframes tickerShine{0%,100%{background-position:0% 50%;}50%{background-position:100% 50%;}}
+
+/* ===== HEADER ===== */
+.hdr{background:rgba(3,7,18,0.75);backdrop-filter:blur(30px);-webkit-backdrop-filter:blur(30px);border-bottom:1px solid var(--cb);padding:16px 32px;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:10px;position:sticky;top:0;z-index:100;}
+.hdr-l{display:flex;align-items:center;gap:16px;}
+.logo{background:var(--red);border-radius:11px;padding:6px 14px;display:flex;align-items:center;gap:2px;box-shadow:0 2px 20px var(--rg),inset 0 1px 0 rgba(255,255,255,0.15);position:relative;overflow:hidden;}
+.logo::after{content:'';position:absolute;top:-50%;left:-50%;width:200%;height:200%;background:linear-gradient(135deg,transparent,rgba(255,255,255,0.1),transparent);animation:logoShine 3s ease-in-out infinite;}
+@keyframes logoShine{0%,100%{transform:rotate(0deg);}50%{transform:rotate(5deg);}}
+.logo .a{font-family:'Poppins',sans-serif;font-weight:800;font-size:17px;color:#fff;font-style:italic;position:relative;z-index:1;}
+.logo .nn{font-family:'Poppins',sans-serif;font-weight:700;font-size:15px;color:#fff;border:1.5px solid rgba(255,255,255,0.5);border-radius:5px;padding:0 5px;margin-left:1px;position:relative;z-index:1;}
+.hdr-i h1{font-size:15px;font-weight:700;letter-spacing:-.3px;}.hdr-i p{font-size:10.5px;color:var(--m);}
+.hdr-b{font-size:10.5px;color:var(--m2);background:rgba(255,255,255,0.04);border:1px solid var(--gb);padding:6px 14px;border-radius:22px;backdrop-filter:blur(12px);}
+
+/* ===== NAV ===== */
+.nav{background:rgba(3,7,18,0.7);backdrop-filter:blur(20px);border-bottom:1px solid var(--cb);padding:0 28px;display:flex;gap:0;overflow-x:auto;position:sticky;top:60px;z-index:99;}
+.nb{padding:13px 18px;border:none;background:transparent;color:var(--m);font-size:12px;font-weight:600;cursor:pointer;white-space:nowrap;font-family:'Inter',sans-serif;border-bottom:2.5px solid transparent;transition:all .25s;position:relative;}.nb:hover{color:var(--t);}.nb.on{color:#fff;border-bottom-color:var(--red);}
+.nb.on::after{content:'';position:absolute;bottom:-1px;left:20%;right:20%;height:2px;background:var(--red);filter:blur(4px);}
+.sec{display:none;position:relative;z-index:1;}.sec.on{display:block;}
+.wrap{max-width:1260px;margin:0 auto;padding:32px 22px 56px;}
+
+/* ===== HERO ===== */
+.hero{text-align:center;padding:56px 24px 44px;position:relative;z-index:1;}
+.hero-ey{display:inline-flex;align-items:center;gap:8px;background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.08);backdrop-filter:blur(12px);padding:6px 16px;border-radius:24px;font-size:11px;color:var(--m2);font-weight:600;margin-bottom:20px;box-shadow:0 2px 12px rgba(0,0,0,0.2);}
+.hero-ey .dot{width:7px;height:7px;border-radius:50%;background:var(--green);box-shadow:0 0 8px var(--green);animation:pulse 2s infinite;}
+@keyframes pulse{0%,100%{opacity:1;box-shadow:0 0 8px var(--green);}50%{opacity:.4;box-shadow:0 0 2px var(--green);}}
+.hero h1{font-family:'Poppins',sans-serif;font-size:clamp(26px,4vw,44px);font-weight:900;line-height:1.15;margin-bottom:12px;letter-spacing:-1.5px;}
+.hero h1 .grad{background:linear-gradient(135deg,#ff6b6b,var(--red),var(--amber),#ff6b6b);background-size:300% 300%;-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;animation:gradShift 6s ease infinite;}
+@keyframes gradShift{0%,100%{background-position:0% 50%;}50%{background-position:100% 50%;}}
+.hero .sub{font-size:14px;color:var(--m2);max-width:700px;margin:0 auto 28px;line-height:1.75;}
+
+/* ===== COUNTERS ===== */
+.cr{display:flex;justify-content:center;gap:28px;flex-wrap:wrap;margin-bottom:36px;padding:24px;background:rgba(255,255,255,0.02);border:1px solid var(--cb);border-radius:20px;backdrop-filter:blur(16px);box-shadow:0 4px 30px rgba(0,0,0,0.15);}
+.ci{text-align:center;min-width:85px;}
+.cv{font-family:'Poppins',sans-serif;font-size:36px;font-weight:900;letter-spacing:-1px;background:linear-gradient(180deg,#fff 10%,var(--m2) 100%);-webkit-background-clip:text;-webkit-text-fill-color:transparent;}
+.cl{font-size:9.5px;color:var(--m);text-transform:uppercase;letter-spacing:1.2px;font-weight:700;margin-top:2px;}
+.cdiv{width:1px;background:linear-gradient(180deg,transparent,var(--cb),transparent);align-self:stretch;margin:8px 0;}
+
+/* ===== TWO-TIER BANNER ===== */
+.imp-ban{display:grid;grid-template-columns:1fr 1fr;gap:18px;margin-bottom:32px;}
+@media(max-width:600px){.imp-ban{grid-template-columns:1fr;}}
+.imp-bx{background:rgba(255,255,255,0.03);border:1px solid var(--cb);border-radius:20px;padding:28px 24px;backdrop-filter:blur(16px);text-align:center;position:relative;overflow:hidden;transition:all .4s;}
+.imp-bx:hover{transform:translateY(-3px);border-color:rgba(255,255,255,0.12);box-shadow:0 12px 40px rgba(0,0,0,0.25);}
+.imp-bx::before{content:'';position:absolute;inset:0;border-radius:20px;padding:1px;background:linear-gradient(135deg,transparent 40%,rgba(255,255,255,0.08) 50%,transparent 60%);-webkit-mask:linear-gradient(#fff 0 0) content-box,linear-gradient(#fff 0 0);-webkit-mask-composite:xor;mask-composite:exclude;pointer-events:none;}
+.imp-bx::after{content:'';position:absolute;bottom:0;left:0;right:0;height:3px;}
+.imp-bx.t1::after{background:linear-gradient(90deg,var(--green),var(--cyan));}
+.imp-bx.t2::after{background:linear-gradient(90deg,var(--amber),var(--red));}
+.imp-bx .imp-ic{font-size:32px;margin-bottom:8px;}
+.imp-bx .imp-lb{font-size:10px;text-transform:uppercase;letter-spacing:1.8px;color:var(--m);font-weight:700;}
+.imp-bx .imp-nm{font-family:'Poppins',sans-serif;font-size:44px;font-weight:900;letter-spacing:-2px;margin:6px 0;}
+.imp-bx.t1 .imp-nm{background:linear-gradient(135deg,var(--green),var(--cyan));-webkit-background-clip:text;-webkit-text-fill-color:transparent;}
+.imp-bx.t2 .imp-nm{background:linear-gradient(135deg,var(--amber),var(--red));-webkit-background-clip:text;-webkit-text-fill-color:transparent;}
+.imp-bx .imp-pc{font-size:15px;font-weight:700;color:var(--m2);}
+.imp-bx .imp-ds{font-size:11.5px;color:var(--m);margin-top:8px;line-height:1.55;}
+
+/* ===== GLANCE CARDS ===== */
+.gg{display:grid;grid-template-columns:repeat(auto-fit,minmax(175px,1fr));gap:14px;margin-bottom:32px;}
+.gc{background:rgba(255,255,255,0.03);border:1px solid var(--cb);border-radius:16px;padding:20px 18px;backdrop-filter:blur(14px);transition:all .35s;position:relative;overflow:hidden;cursor:default;}
+.gc:hover{transform:translateY(-4px);border-color:rgba(255,255,255,0.12);box-shadow:0 12px 40px rgba(0,0,0,0.25);}
+.gc::before{content:'';position:absolute;top:-50%;left:-50%;width:0;height:0;background:radial-gradient(circle,rgba(255,255,255,0.06),transparent 70%);transition:all .5s;border-radius:50%;}.gc:hover::before{width:200%;height:200%;}
+.gc .glow{position:absolute;top:-30px;right:-30px;width:80px;height:80px;border-radius:50%;filter:blur(35px);opacity:.1;transition:opacity .3s;}.gc:hover .glow{opacity:.2;}
+.gc.red .glow{background:var(--red);}.gc.grn .glow{background:var(--green);}.gc.amb .glow{background:var(--amber);}.gc.blu .glow{background:var(--blue);}.gc.pur .glow{background:var(--purple);}.gc.ros .glow{background:var(--rose);}.gc.cyn .glow{background:var(--cyan);}
+.gc-ic{font-size:20px;margin-bottom:8px;}.gc-lb{font-size:9.5px;text-transform:uppercase;letter-spacing:1.1px;color:var(--m);font-weight:700;}
+.gc-vl{font-family:'Poppins',sans-serif;font-size:28px;font-weight:900;margin:3px 0;letter-spacing:-1px;}
+.gc.red .gc-vl{color:var(--red);}.gc.grn .gc-vl{color:var(--green);}.gc.amb .gc-vl{color:var(--amber);}.gc.blu .gc-vl{color:var(--blue);}.gc.pur .gc-vl{color:var(--purple);}.gc.ros .gc-vl{color:var(--rose);}.gc.cyn .gc-vl{color:var(--cyan);}
+.gc-sb{font-size:10px;color:var(--m);}
+
+/* ===== SECTION HEAD ===== */
+.sh{display:flex;align-items:center;gap:10px;margin:32px 0 16px;padding-bottom:10px;border-bottom:1px solid var(--cb);}
+.sh .bar{width:4px;height:22px;border-radius:2px;background:linear-gradient(180deg,var(--red),rgba(228,37,39,0.3));}
+.sh h2{font-size:14px;font-weight:700;letter-spacing:-.2px;}
+.sh .bsm{font-size:9.5px;background:rgba(255,255,255,0.04);border:1px solid var(--gb);padding:3px 10px;border-radius:12px;color:var(--m2);font-weight:600;}
+
+/* ===== EXEC BOX ===== */
+.exec{background:rgba(255,255,255,0.025);border:1px solid rgba(228,37,39,0.12);border-radius:20px;padding:28px 28px;margin-bottom:28px;backdrop-filter:blur(16px);position:relative;overflow:hidden;}
+.exec::before{content:'';position:absolute;top:0;left:0;width:100%;height:1px;background:linear-gradient(90deg,transparent,rgba(228,37,39,0.3),transparent);}
+.exec h2{font-size:10.5px;text-transform:uppercase;letter-spacing:2px;color:var(--red);font-weight:800;margin-bottom:14px;}
+.el{list-style:none;padding:0;}.el li{font-size:12.5px;line-height:1.75;padding:6px 0 6px 22px;position:relative;color:var(--m2);border-bottom:1px solid rgba(255,255,255,0.025);}
+.el li:last-child{border:none;}.el li::before{content:'';position:absolute;left:0;top:13px;width:8px;height:8px;border-radius:50%;}
+.el li.g::before{background:var(--green);box-shadow:0 0 8px var(--gg);}.el li.r::before{background:var(--red);box-shadow:0 0 8px var(--rg);}.el li.b::before{background:var(--blue);}.el li.a::before{background:var(--amber);}
+.el li strong{color:#fff;font-weight:700;}
+
+/* ===== CHARTS ===== */
+.cg2{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-bottom:20px;}
+@media(max-width:860px){.cg2{grid-template-columns:1fr;}}
+.cp{background:rgba(255,255,255,0.03);border:1px solid var(--cb);border-radius:18px;padding:22px;backdrop-filter:blur(14px);transition:border-color .3s;}.cp:hover{border-color:rgba(255,255,255,0.1);}
+.cp h3{font-size:12px;font-weight:700;margin-bottom:14px;color:var(--m2);}
+.cp canvas{max-height:260px;}
+.cf{background:rgba(255,255,255,0.03);border:1px solid var(--cb);border-radius:18px;padding:22px;backdrop-filter:blur(14px);margin-bottom:20px;}
+.cf h3{font-size:12px;font-weight:700;margin-bottom:14px;color:var(--m2);}
+
+/* ===== REVENUE BANNER ===== */
+.rv-ban{display:grid;grid-template-columns:1fr 1fr 1fr;gap:16px;margin-bottom:24px;}
+@media(max-width:700px){.rv-ban{grid-template-columns:1fr;}}
+.rb{background:rgba(255,255,255,0.03);border:1px solid var(--cb);border-radius:18px;padding:24px;text-align:center;backdrop-filter:blur(14px);position:relative;overflow:hidden;transition:all .3s;}
+.rb:hover{transform:translateY(-2px);border-color:rgba(255,255,255,0.1);}
+.rb::after{content:'';position:absolute;bottom:0;left:0;right:0;height:3px;}
+.rb:nth-child(1)::after{background:linear-gradient(90deg,var(--m),var(--m2));}.rb:nth-child(2)::after{background:linear-gradient(90deg,var(--blue),var(--cyan));}.rb:nth-child(3)::after{background:linear-gradient(90deg,var(--green),var(--amber));}
+.rb-lb{font-size:9.5px;text-transform:uppercase;letter-spacing:1.3px;color:var(--m);font-weight:700;}
+.rb-vl{font-family:'Poppins',sans-serif;font-size:32px;font-weight:900;letter-spacing:-1px;margin:4px 0;}
+.rb:nth-child(1) .rb-vl{color:var(--m2);}.rb:nth-child(2) .rb-vl{color:var(--blue);}.rb:nth-child(3) .rb-vl{color:var(--green);}
+.rb-sb{font-size:10.5px;color:var(--m);}
+
+/* ===== TABLE ===== */
+.tw{background:rgba(255,255,255,0.025);border:1px solid var(--cb);border-radius:16px;overflow-x:auto;backdrop-filter:blur(14px);margin-bottom:20px;}
+table{width:100%;border-collapse:collapse;font-size:11px;}
+thead th{background:rgba(0,0,0,0.35);padding:10px 11px;text-align:left;font-size:9px;text-transform:uppercase;letter-spacing:.8px;color:var(--m);font-weight:700;white-space:nowrap;border-bottom:2px solid var(--red);}
+tbody td{padding:9px 11px;border-bottom:1px solid rgba(255,255,255,0.03);white-space:nowrap;}
+tbody tr{transition:background .2s;}tbody tr:hover{background:rgba(255,255,255,0.025);}
+.bd{display:inline-block;padding:2px 9px;border-radius:10px;font-size:9.5px;font-weight:700;}
+.bg{background:rgba(16,185,129,0.12);color:var(--green);}.ba{background:rgba(6,182,212,0.12);color:var(--cyan);}.br{background:rgba(244,63,94,0.12);color:var(--rose);}.by{background:rgba(245,158,11,0.12);color:var(--amber);}
+
+/* ===== INSIGHTS ===== */
+.ig{display:grid;grid-template-columns:repeat(auto-fit,minmax(285px,1fr));gap:14px;margin-bottom:20px;}
+.ic{background:rgba(255,255,255,0.03);border:1px solid var(--cb);border-radius:16px;padding:22px;backdrop-filter:blur(14px);transition:all .35s;position:relative;overflow:hidden;}
+.ic:hover{transform:translateY(-3px);border-color:rgba(255,255,255,0.12);box-shadow:0 12px 40px rgba(0,0,0,0.2);}
+.ic .ics{position:absolute;top:0;left:0;right:0;height:3px;}
+.ic:nth-child(1) .ics{background:linear-gradient(90deg,var(--green),var(--blue));}.ic:nth-child(2) .ics{background:linear-gradient(90deg,var(--amber),var(--red));}.ic:nth-child(3) .ics{background:linear-gradient(90deg,var(--blue),var(--purple));}.ic:nth-child(4) .ics{background:linear-gradient(90deg,var(--green),var(--amber));}.ic:nth-child(5) .ics{background:linear-gradient(90deg,var(--purple),var(--rose));}.ic:nth-child(6) .ics{background:linear-gradient(90deg,var(--rose),var(--amber));}.ic:nth-child(7) .ics{background:linear-gradient(90deg,var(--cyan),var(--green));}
+.ic-em{font-size:22px;margin-bottom:5px;}.ic-tt{font-size:9.5px;font-weight:700;color:var(--red);text-transform:uppercase;letter-spacing:.8px;margin-bottom:4px;}
+.ic-st{font-family:'Poppins',sans-serif;font-size:17px;font-weight:800;color:#fff;margin-bottom:5px;letter-spacing:-.3px;}
+.ic-ds{font-size:11.5px;color:var(--m);line-height:1.6;}
+
+/* ===== TRAINERS ===== */
+.tg{display:grid;grid-template-columns:repeat(auto-fit,minmax(265px,1fr));gap:14px;margin-bottom:20px;}
+.trc{background:rgba(255,255,255,0.03);border:1px solid var(--cb);border-radius:16px;padding:22px;backdrop-filter:blur(14px);transition:all .35s;position:relative;overflow:hidden;}
+.trc:hover{transform:translateY(-3px);border-color:rgba(228,37,39,0.2);box-shadow:0 12px 40px rgba(0,0,0,0.2);}
+.trc::before{content:'';position:absolute;top:0;left:0;right:0;height:3px;background:linear-gradient(90deg,var(--red),rgba(228,37,39,0.3));}
+.trn{font-family:'Poppins',sans-serif;font-size:16px;font-weight:700;color:var(--red);margin-bottom:12px;padding-bottom:10px;border-bottom:1px solid var(--cb);}
+.trr{display:flex;justify-content:space-between;padding:4px 0;font-size:12px;}.trr .trl{color:var(--m);}.trr .trv{font-weight:700;}
+.tr-dual{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin:12px 0 8px;padding:14px;background:rgba(255,255,255,0.02);border-radius:14px;border:1px solid var(--cb);}
+.td-item{text-align:center;padding:6px 0;}
+.td-item .td-lb{font-size:8px;text-transform:uppercase;letter-spacing:1px;color:var(--m);font-weight:700;margin-bottom:2px;}
+.td-item .td-vl{font-family:'Poppins',sans-serif;font-size:24px;font-weight:900;letter-spacing:-.5px;}
+.td-item .td-pc{font-size:10px;color:var(--m);}
+
+/* ===== FOOTER ===== */
+.ftr{text-align:center;padding:28px 20px;font-size:10.5px;color:var(--m);border-top:1px solid var(--cb);position:relative;z-index:1;margin-top:16px;}
+.fl{display:inline-flex;align-items:center;gap:2px;background:var(--red);border-radius:8px;padding:5px 12px;margin-bottom:8px;box-shadow:0 2px 12px var(--rg);}
+.fl span:first-child{font-family:'Poppins',sans-serif;font-weight:800;font-size:14px;color:#fff;font-style:italic;}.fl span:last-child{font-family:'Poppins',sans-serif;font-weight:700;font-size:13px;color:#fff;border:1.5px solid rgba(255,255,255,0.5);border-radius:4px;padding:0 4px;}
+</style>
+</head>
+<body>
+
+<!-- Animated Background -->
+<div class="bg-mesh"><div class="bg-orb o1"></div><div class="bg-orb o2"></div><div class="bg-orb o3"></div><div class="bg-orb o4"></div></div>
+<div class="bg-grid"></div>
+
+<button class="stt" id="sb" onclick="window.scrollTo({top:0})">↑</button>
+<div class="ticker">📊 PIT June 2026 — <strong>85% Improved · 55% Benchmark Crossed · ₹5.57L Revenue Growth</strong> &nbsp;|&nbsp; Training & Development</div>
+
+<div class="hdr">
+  <div class="hdr-l">
+    <div class="logo"><span class="a">Adda</span><span class="nn">247</span></div>
+    <div class="hdr-i"><h1>Performance Improvement Training — Impact Report</h1><p>Training & Development &nbsp;·&nbsp; Rahul Jha, Sr. Manager</p></div>
+  </div>
+  <span class="hdr-b">📅 June 2026 &nbsp;|&nbsp; Baseline: May 2026</span>
+</div>
+
+<div class="nav">
+  <button class="nb on" onclick="go('ov')">📊 Overview</button>
+  <button class="nb" onclick="go('rv')">💰 Revenue Impact</button>
+  <button class="nb" onclick="go('fl')">🏢 Floor Analysis</button>
+  <button class="nb" onclick="go('cd')">👥 Candidates</button>
+  <button class="nb" onclick="go('tr')">🎓 Trainers</button>
+  <button class="nb" onclick="go('in')">💡 Insights</button>
+</div>
+
+<!-- ===== OVERVIEW ===== -->
+<div class="sec on" id="s-ov">
+<div class="hero">
+  <div class="hero-ey"><span class="dot"></span> PIT June 2026 — Cohort Complete</div>
+  <h1>₹5.57L Revenue Growth.<br><span class="grad">85% Showed Improvement.</span></h1>
+  <p>20 underperformers from May enrolled in 2-week PIT covering critical skills, audition & negotiation. 17 improved conversion. 11 crossed the 25% benchmark. 15 grew revenue month-on-month.</p>
+</div>
+<div class="wrap" style="padding-top:0;">
+  <div class="cr">
+    <div class="ci"><div class="cv" data-t="20">0</div><div class="cl">Candidates</div></div><div class="cdiv"></div>
+    <div class="ci"><div class="cv" data-t="85" data-s="%">0</div><div class="cl">Improved</div></div><div class="cdiv"></div>
+    <div class="ci"><div class="cv" data-t="55" data-s="%">0</div><div class="cl">Benchmark ≥25%</div></div><div class="cdiv"></div>
+    <div class="ci"><div class="cv" data-t="5.57" data-p="₹" data-s="L" data-d="1">0</div><div class="cl">Rev Growth</div></div><div class="cdiv"></div>
+    <div class="ci"><div class="cv" data-t="12.4" data-s="%" data-d="1">0</div><div class="cl">MoM Growth</div></div>
+  </div>
+
+  <div class="imp-ban" style="grid-template-columns:1fr;">
+    <div class="imp-bx t2"><div class="imp-ic">🎯</div><div class="imp-lb">25% Conversion Improvement Benchmark — Crossed</div><div class="imp-nm">11 / 20</div><div class="imp-pc">55% of Cohort</div><div class="imp-ds">11 candidates improved their conversion by 25% or more compared to May. Top performers: Arjun 168%, Swati Maurya 105%, Ravi Sachan 100%, Prabhat 93%, Janardan 78%.</div></div>
+  </div>
+
+  <div class="gg">
+    <div class="gc red"><div class="glow"></div><div class="gc-ic">🎯</div><div class="gc-lb">PIT Candidates</div><div class="gc-vl">20</div><div class="gc-sb">16 verticals · 2 locations</div></div>
+    <div class="gc grn"><div class="glow"></div><div class="gc-ic">📈</div><div class="gc-lb">Any Improvement</div><div class="gc-vl">17</div><div class="gc-sb">85% showed gains</div></div>
+    <div class="gc amb"><div class="glow"></div><div class="gc-ic">🎯</div><div class="gc-lb">Benchmark ≥25%</div><div class="gc-vl">11</div><div class="gc-sb">55% crossed threshold</div></div>
+    <div class="gc blu"><div class="glow"></div><div class="gc-ic">💰</div><div class="gc-lb">Revenue Delta</div><div class="gc-vl">+₹5.57L</div><div class="gc-sb">₹44.99L → ₹50.56L</div></div>
+    <div class="gc pur"><div class="glow"></div><div class="gc-ic">🏆</div><div class="gc-lb">Above Floor Avg</div><div class="gc-vl">10/17</div><div class="gc-sb">59% beating floor</div></div>
+    <div class="gc ros"><div class="glow"></div><div class="gc-ic">⚠️</div><div class="gc-lb">Declined</div><div class="gc-vl">3</div><div class="gc-sb">15% need intervention</div></div>
+    <div class="gc cyn"><div class="glow"></div><div class="gc-ic">📊</div><div class="gc-lb">Avg Improvement</div><div class="gc-vl">41.1%</div><div class="gc-sb">Median 30% · Max 168%</div></div>
+  </div>
+
+  <div class="exec">
+    <h2>Executive Summary</h2>
+    <ul class="el">
+      <li class="g"><strong>85% Showed Improvement:</strong> 17/20 candidates improved conversion vs May. Even marginal gainers like Sachin (+3%) and Mohan Reddy (+10%) delivered strong revenue jumps (₹0.58L and ₹1.51L).</li>
+      <li class="g"><strong>55% Crossed 25% Benchmark:</strong> 11 candidates met the official PIT success threshold. Arjun led at 168%, followed by Swati (105%) and Ravi (100%).</li>
+      <li class="b"><strong>₹5.57L Revenue Growth (+12.4%):</strong> ₹44.99L (May) → ₹50.56L (June). 15/20 grew revenue individually. Surplus from growers = ₹7.27L.</li>
+      <li class="g"><strong>Floor Outperformance:</strong> 10/17 (59%) now earn above floor average. May's bottom performers → June's outperformers.</li>
+      <li class="a"><strong>3 Conv Winners Lost Revenue:</strong> Ravi (+100% conv, –₹0.34L), Amita (+25%, –₹0.10L), Isha (+56%, flat). Needs lead allocation review.</li>
+      <li class="r"><strong>3 Declined:</strong> Himanshu (–31%, –₹1.08L) is biggest risk. Nitesh (–22%) and Kuldeep (–3%) also declined.</li>
+      <li class="b"><strong>3–6M Tenure = Sweet Spot:</strong> 62% success rate, 50.8% avg improvement — highest ROI window.</li>
+    </ul>
+  </div>
+
+  <div class="cg2">
+    <div class="cp"><h3>Two-Tier Improvement Breakdown</h3><canvas id="cDual"></canvas></div>
+    <div class="cp"><h3>Improvement Distribution</h3><canvas id="c1"></canvas></div>
+  </div>
+  <div class="cf"><h3>Conversion Improvement % — Red dashed = 25% Benchmark · White dashed = 0% Baseline</h3><canvas id="c3" style="max-height:400px;"></canvas></div>
+</div>
+</div>
+
+<!-- ===== REVENUE ===== -->
+<div class="sec" id="s-rv">
+<div class="wrap">
+  <div class="sh"><div class="bar"></div><h2>Revenue Impact Analysis</h2><span class="bsm">May → June</span></div>
+  <div class="rv-ban">
+    <div class="rb"><div class="rb-lb">May Revenue</div><div class="rb-vl">₹44.99L</div><div class="rb-sb">Pre-PIT baseline</div></div>
+    <div class="rb"><div class="rb-lb">June Revenue</div><div class="rb-vl">₹50.56L</div><div class="rb-sb">Post-PIT output</div></div>
+    <div class="rb"><div class="rb-lb">Revenue Growth</div><div class="rb-vl">↑ ₹5.57L</div><div class="rb-sb">+12.4% MoM · 15/20 grew</div></div>
+  </div>
+  <div class="cf"><h3>Revenue Delta by Candidate (₹K)</h3><canvas id="cRD" style="max-height:400px;"></canvas></div>
+  <div class="cg2">
+    <div class="cp"><h3>May vs June Revenue (₹ Lakhs)</h3><canvas id="cMJ"></canvas></div>
+    <div class="cp"><h3>Revenue Growth Split</h3><canvas id="cRG"></canvas></div>
+  </div>
+  <div class="sh"><div class="bar" style="background:linear-gradient(180deg,var(--amber),rgba(245,158,11,0.3))"></div><h2>Conv vs Revenue Cross-Analysis</h2></div>
+  <div class="tw"><table><thead><tr><th>#</th><th>Name</th><th>Vertical</th><th>Conv Imp</th><th>May Rev</th><th>Jun Rev</th><th>Rev Delta</th><th>Floor%</th><th>Pattern</th></tr></thead><tbody id="tbCR"></tbody></table></div>
+</div>
+</div>
+
+<!-- ===== FLOOR ===== -->
+<div class="sec" id="s-fl">
+<div class="wrap">
+  <div class="sh"><div class="bar"></div><h2>Floor Performance</h2><span class="bsm">17 with floor data</span></div>
+  <div class="cg2">
+    <div class="cp"><h3>Floor Achievement % — 100% = Floor Average</h3><canvas id="c2"></canvas></div>
+    <div class="cp"><h3>Revenue vs Floor (₹K)</h3><canvas id="c4"></canvas></div>
+  </div>
+  <div class="cg2">
+    <div class="cp"><h3>Improvement by Tenure</h3><canvas id="c5"></canvas></div>
+    <div class="cp"><h3>Location — GGN (12) vs LKO (8)</h3><canvas id="c7"></canvas></div>
+  </div>
+</div>
+</div>
+
+<!-- ===== CANDIDATES ===== -->
+<div class="sec" id="s-cd">
+<div class="wrap">
+  <div class="sh"><div class="bar" style="background:linear-gradient(180deg,var(--green),rgba(16,185,129,0.3))"></div><h2>Benchmark Crossed — ≥25%</h2><span class="bsm">11 candidates</span></div>
+  <div class="tw"><table><thead><tr><th>#</th><th>Name</th><th>Vertical</th><th>Loc</th><th>Trainer</th><th>May%</th><th>Jun%</th><th>Conv Imp</th><th>May Rev</th><th>Jun Rev</th><th>Δ Rev</th><th>Floor%</th><th>Status</th></tr></thead><tbody id="tb1"></tbody></table></div>
+  <div class="sh"><div class="bar" style="background:linear-gradient(180deg,var(--cyan),rgba(6,182,212,0.3))"></div><h2>Improved — 1–24%</h2><span class="bsm">6 candidates</span></div>
+  <div class="tw"><table><thead><tr><th>#</th><th>Name</th><th>Vertical</th><th>Loc</th><th>Trainer</th><th>May%</th><th>Jun%</th><th>Conv Imp</th><th>May Rev</th><th>Jun Rev</th><th>Δ Rev</th><th>Floor%</th><th>Status</th></tr></thead><tbody id="tb2"></tbody></table></div>
+  <div class="sh"><div class="bar" style="background:linear-gradient(180deg,var(--rose),rgba(244,63,94,0.3))"></div><h2>Declined</h2><span class="bsm">3 candidates</span></div>
+  <div class="tw"><table><thead><tr><th>#</th><th>Name</th><th>Vertical</th><th>Loc</th><th>Trainer</th><th>May%</th><th>Jun%</th><th>Conv Imp</th><th>May Rev</th><th>Jun Rev</th><th>Δ Rev</th><th>Floor%</th><th>Status</th></tr></thead><tbody id="tb3"></tbody></table></div>
+</div>
+</div>
+
+<!-- ===== TRAINERS ===== -->
+<div class="sec" id="s-tr">
+<div class="wrap">
+  <div class="sh"><div class="bar"></div><h2>Trainer Scorecard — Dual Improvement</h2></div>
+  <div class="tg" id="trC"></div>
+  <div class="cf"><h3>Trainer Comparison — Any Improvement vs Benchmark ≥25%</h3><canvas id="c8" style="max-height:300px;"></canvas></div>
+</div>
+</div>
+
+<!-- ===== INSIGHTS ===== -->
+<div class="sec" id="s-in">
+<div class="wrap">
+  <div class="sh"><div class="bar"></div><h2>Data-Backed Findings</h2></div>
+  <div class="ig">
+    <div class="ic"><div class="ics"></div><div class="ic-em">💰</div><div class="ic-tt">Revenue Impact</div><div class="ic-st">₹5.57L Growth (+12.4%)</div><div class="ic-ds">₹44.99L → ₹50.56L. 15/20 grew revenue. ₹7.27L surplus from growers, ₹1.70L lost from decliners.</div></div>
+    <div class="ic"><div class="ics"></div><div class="ic-em">🎯</div><div class="ic-tt">Biggest Turnaround</div><div class="ic-st">Arjun — 168% Improvement</div><div class="ic-ds">Banking. 2%→5.1%. Revenue +₹0.80L. 12+ months tenure. Floor ach 106%. Long-tenure underperformer unlocked.</div></div>
+    <div class="ic"><div class="ics"></div><div class="ic-em">📊</div><div class="ic-tt">Biggest Revenue Gainer</div><div class="ic-st">B. Mohan Reddy — +₹1.51L</div><div class="ic-ds">AP/HID. Revenue nearly doubled. Conv only +10% but selling confidence transformed. ₹1.65L→₹3.16L.</div></div>
+    <div class="ic"><div class="ics"></div><div class="ic-em">⚠️</div><div class="ic-tt">Conv Up, Revenue Down</div><div class="ic-st">3 Candidates — ₹0.45L Lost</div><div class="ic-ds">Ravi (+100%, –₹0.34L), Amita (+25%, –₹0.10L), Isha (+56%, flat). Lead volume or ticket size dropped.</div></div>
+    <div class="ic"><div class="ics"></div><div class="ic-em">🆕</div><div class="ic-tt">New Joiners = Most Coachable</div><div class="ic-st">3/4 Improved · +₹1.03L Combined</div><div class="ic-ds">Swati (+105%, +₹0.62L), Shakeel (+56%, +₹0.33L), Saumya (+20%, +₹0.07L). Fastest PIT responders.</div></div>
+    <div class="ic"><div class="ics"></div><div class="ic-em">🔴</div><div class="ic-tt">Biggest Risk</div><div class="ic-st">Himanshu — –₹1.08L Drop</div><div class="ic-ds">JC Re-purchase. Conv –31%. Already on POP. Largest single revenue loss in cohort.</div></div>
+    <div class="ic"><div class="ics"></div><div class="ic-em">⚡</div><div class="ic-tt">Sweet Spot</div><div class="ic-st">3–6M: 62% · 50.8% Avg Lift</div><div class="ic-ds">Highest improvement rate. Product knowledge absorbed, bad habits not yet solidified. Optimal PIT window.</div></div>
+  </div>
+</div>
+</div>
+
+<div class="ftr"><div class="fl"><span>Adda</span><span>247</span></div><div>Training & Development &nbsp;·&nbsp; Rahul Jha, Sr. Manager — Training & Development &nbsp;·&nbsp; July 2026</div></div>
+
+<script>
+function go(id){document.querySelectorAll('.sec').forEach(s=>s.classList.remove('on'));document.querySelectorAll('.nb').forEach(b=>b.classList.remove('on'));document.getElementById('s-'+id).classList.add('on');event.target.classList.add('on');window.scrollTo({top:0,behavior:'smooth'});}
+window.addEventListener('scroll',()=>{document.getElementById('sb').style.display=window.scrollY>300?'block':'none';});
+document.querySelectorAll('.cv').forEach(el=>{const t=parseFloat(el.dataset.t),p=el.dataset.p||'',s=el.dataset.s||'',d=parseInt(el.dataset.d||'0');let c=0;const st=t/50;const tm=setInterval(()=>{c+=st;if(c>=t){c=t;clearInterval(tm);}el.textContent=p+(d>0?c.toFixed(d):Math.round(c))+s;},25);});
+
+Chart.defaults.color='#64748B';Chart.defaults.borderColor='rgba(255,255,255,0.03)';Chart.defaults.font.family='Inter';
+
+const D=[
+{n:"RAVI SACHAN",v:"Agriculture",l:"GGN",t:"Mayank.1",mc:3,jc:6.8,imp:100,rev:334474,mr:368949,rd:-34475,fa:121,fr:276018,bk:"9-12M"},
+{n:"B. Mohan Reddy",v:"AP",l:"GGN",t:"Pooja",mc:3,jc:3,imp:10,rev:316175,mr:164873,rd:151302,fa:0,fr:0,bk:"12+M"},
+{n:"Arjun",v:"Banking",l:"GGN",t:"Mayank.1",mc:2,jc:5.1,imp:168,rev:288844,mr:208531,rd:80313,fa:106,fr:272397,bk:"12+M"},
+{n:"Kapil Kumar",v:"Banking_R",l:"GGN",t:"Mayank.1",mc:4,jc:4,imp:13,rev:445109,mr:430595,rd:14514,fa:157,fr:283727,bk:"12+M"},
+{n:"Nitesh Chaturvedi",v:"Odisha",l:"LKO",t:"Pooja",mc:3,jc:2,imp:-22,rev:71850,mr:62049,rd:9801,fa:39,fr:183000,bk:"3-6M"},
+{n:"Shakeel Ahmed",v:"CTET",l:"LKO",t:"Pooja",mc:2,jc:3.3,imp:56,rev:114454,mr:81100,rd:33354,fa:92,fr:125000,bk:"3-6M"},
+{n:"Kuldeep Kumar",v:"Engineering",l:"LKO",t:"Ayat",mc:2,jc:1.7,imp:-3,rev:103774,mr:119805,rd:-16031,fa:137,fr:75657,bk:"9-12M"},
+{n:"Prakash Kumar",v:"JAIIB-CAIIB",l:"GGN",t:"Mayank.1",mc:48,jc:54.5,imp:13,rev:882335,mr:879291,rd:3044,fa:101,fr:877815,bk:"12+M"},
+{n:"Himanshu Patel",v:"JC Re-purchase",l:"GGN",t:"Mayank.1",mc:3,jc:2.3,imp:-31,rev:377667,mr:485714,rd:-108047,fa:65,fr:584669,bk:"12+M"},
+{n:"Sachin Kumar",v:"Nursing",l:"LKO",t:"Ayat",mc:3,jc:3.4,imp:3,rev:247706,mr:190193,rd:57513,fa:175,fr:141728,bk:"6-9M"},
+{n:"Prabhat",v:"Odisha",l:"GGN",t:"Pooja",mc:3,jc:6.2,imp:93,rev:245302,mr:165670,rd:79632,fa:0,fr:0,bk:"3-6M"},
+{n:"DEVENDRA VERMA",v:"Odisha",l:"LKO",t:"Pooja",mc:4,jc:6.1,imp:64,rev:154169,mr:105491,rd:48678,fa:84,fr:183000,bk:"3-6M"},
+{n:"Saumya Singh",v:"Punjab",l:"GGN",t:"Pooja",mc:1,jc:1.2,imp:20,rev:57813,mr:50815,rd:6998,fa:48,fr:120116,bk:"3-6M"},
+{n:"JANARDAN SINGH PAL",v:"Railways",l:"LKO",t:"Ayat",mc:4,jc:6.4,imp:78,rev:168404,mr:145728,rd:22676,fa:137,fr:122515,bk:"3-6M"},
+{n:"Amita Kumari",v:"Regulatory",l:"GGN",t:"Mayank.1",mc:1,jc:1.7,imp:25,rev:180940,mr:191374,rd:-10434,fa:104,fr:173475,bk:"12+M"},
+{n:"SHREYA SRIVASTAVA",v:"SSC",l:"LKO",t:"Ayat",mc:3,jc:3,imp:12,rev:186627,mr:139732,rd:46895,fa:128,fr:145309,bk:"3-6M"},
+{n:"Swati Maurya",v:"SSC",l:"LKO",t:"Ayat",mc:2,jc:4.9,imp:105,rev:160656,mr:98265,rd:62391,fa:111,fr:145309,bk:"3-6M"},
+{n:"JANA RANJANI E",v:"Tamil Nadu",l:"GGN",t:"Pooja",mc:1,jc:1.6,imp:32,rev:140593,mr:93148,rd:47445,fa:91,fr:155258,bk:"6-9M"},
+{n:"Priyanka Sihag",v:"UGC",l:"GGN",t:"Mayank.1",mc:2,jc:2.9,imp:30,rev:367564,mr:305089,rd:62475,fa:0,fr:0,bk:"12+M"},
+{n:"ISHA ACHARJEE",v:"W. Bengal",l:"GGN",t:"Pooja",mc:2,jc:3.3,imp:56,rev:211646,mr:212398,rd:-752,fa:83,fr:254253,bk:"9-12M"}
+];
+const BM=25,anyI=D.filter(d=>d.imp>0).length,bmI=D.filter(d=>d.imp>=BM).length,dec=D.filter(d=>d.imp<0).length;
+
+// Dual bar
+new Chart(document.getElementById('cDual'),{type:'bar',data:{labels:['Any Improvement\n(>0%)','Benchmark\n(≥25%)','Declined\n(<0%)'],datasets:[{data:[anyI,bmI,dec],backgroundColor:['#10B981','#F59E0B','#F43F5E'],borderRadius:6,barThickness:48}]},options:{plugins:{legend:{display:false},tooltip:{callbacks:{label:ctx=>ctx.raw+'/20 ('+Math.round(ctx.raw/20*100)+'%)'}}},scales:{y:{beginAtZero:true,max:20,title:{display:true,text:'Candidates'}}}}});
+
+// Doughnut
+new Chart(document.getElementById('c1'),{type:'doughnut',data:{labels:['Benchmark ≥25% ('+bmI+')','Improved 1–24% ('+(anyI-bmI)+')','Declined ('+dec+')'],datasets:[{data:[bmI,anyI-bmI,dec],backgroundColor:['#10B981','#06B6D4','#F43F5E'],borderWidth:0,borderRadius:4,spacing:3}]},options:{cutout:'65%',plugins:{legend:{position:'bottom',labels:{padding:14,usePointStyle:true,pointStyle:'circle',font:{size:10}}}}}});
+
+// Waterfall
+const srt=[...D].sort((a,b)=>b.imp-a.imp);
+new Chart(document.getElementById('c3'),{type:'bar',data:{labels:srt.map(d=>d.n.length>16?d.n.substring(0,14)+'…':d.n),datasets:[{data:srt.map(d=>d.imp),backgroundColor:srt.map(d=>d.imp>=25?'#10B981':d.imp>0?'#06B6D4':'#F43F5E'),borderRadius:4}]},options:{indexAxis:'y',plugins:{legend:{display:false}},scales:{x:{title:{display:true,text:'Improvement %'},grid:{color:'rgba(255,255,255,0.02)'}},y:{ticks:{font:{size:10}}}}},plugins:[{afterDraw(ch){const ctx=ch.ctx,xA=ch.scales.x,yA=ch.scales.y;let px=xA.getPixelForValue(25);ctx.save();ctx.strokeStyle='#E42527';ctx.lineWidth=2;ctx.setLineDash([6,4]);ctx.beginPath();ctx.moveTo(px,yA.top);ctx.lineTo(px,yA.bottom);ctx.stroke();ctx.fillStyle='#E42527';ctx.font='bold 10px Inter';ctx.fillText('25% Benchmark',px+5,yA.top+14);px=xA.getPixelForValue(0);ctx.strokeStyle='rgba(255,255,255,0.2)';ctx.lineWidth=1.5;ctx.beginPath();ctx.moveTo(px,yA.top);ctx.lineTo(px,yA.bottom);ctx.stroke();ctx.fillStyle='rgba(255,255,255,0.3)';ctx.font='10px Inter';ctx.fillText('0%',px+5,yA.bottom-8);ctx.restore();}}]});
+
+// Revenue Delta
+const rds=[...D].sort((a,b)=>b.rd-a.rd);
+new Chart(document.getElementById('cRD'),{type:'bar',data:{labels:rds.map(d=>d.n.length>16?d.n.substring(0,14)+'…':d.n),datasets:[{data:rds.map(d=>Math.round(d.rd/1000)),backgroundColor:rds.map(d=>d.rd>=0?'#10B981':'#F43F5E'),borderRadius:4}]},options:{indexAxis:'y',plugins:{legend:{display:false},tooltip:{callbacks:{label:ctx=>'₹'+ctx.raw+'K'}}},scales:{x:{title:{display:true,text:'₹ Thousands'}},y:{ticks:{font:{size:10}}}}},plugins:[{afterDraw(ch){const ctx=ch.ctx,xA=ch.scales.x,yA=ch.scales.y,px=xA.getPixelForValue(0);ctx.save();ctx.strokeStyle='rgba(255,255,255,0.12)';ctx.lineWidth=1;ctx.setLineDash([4,3]);ctx.beginPath();ctx.moveTo(px,yA.top);ctx.lineTo(px,yA.bottom);ctx.stroke();ctx.restore();}}]});
+
+// May vs June
+const mjS=[...D].sort((a,b)=>b.rev-a.rev);
+new Chart(document.getElementById('cMJ'),{type:'bar',data:{labels:mjS.map(d=>d.n.split(' ')[0]),datasets:[{label:'May',data:mjS.map(d=>(d.mr/100000).toFixed(2)),backgroundColor:'rgba(255,255,255,0.06)',borderRadius:3},{label:'June',data:mjS.map(d=>(d.rev/100000).toFixed(2)),backgroundColor:mjS.map(d=>d.rd>=0?'#10B981':'#F43F5E'),borderRadius:3}]},options:{plugins:{legend:{position:'top',labels:{usePointStyle:true,pointStyle:'circle',font:{size:10}}}},scales:{x:{ticks:{font:{size:8},maxRotation:45}},y:{title:{display:true,text:'₹ Lakhs'}}}}});
+
+new Chart(document.getElementById('cRG'),{type:'doughnut',data:{labels:['Rev Up ('+D.filter(d=>d.rd>0).length+')','Rev Down ('+D.filter(d=>d.rd<0).length+')'],datasets:[{data:[D.filter(d=>d.rd>0).length,D.filter(d=>d.rd<0).length],backgroundColor:['#10B981','#F43F5E'],borderWidth:0,borderRadius:4,spacing:3}]},options:{cutout:'65%',plugins:{legend:{position:'bottom',labels:{padding:14,usePointStyle:true,pointStyle:'circle',font:{size:10}}}}}});
+
+// Cross table
+const tbCR=document.getElementById('tbCR');
+[...D].sort((a,b)=>b.rd-a.rd).forEach((d,i)=>{let p='';if(d.imp>=25&&d.rd>0)p='<span class="bd bg">Conv ↑ Rev ↑</span>';else if(d.imp>=25&&d.rd<=0)p='<span class="bd by">Conv ↑ Rev ↓</span>';else if(d.imp>0&&d.rd>0)p='<span class="bd bg">Improved ↑</span>';else if(d.imp>0&&d.rd<=0)p='<span class="bd by">Conv ↑ Rev ↓</span>';else if(d.imp<0&&d.rd>0)p='<span class="bd by">Conv ↓ Rev ↑</span>';else p='<span class="bd br">Both ↓</span>';
+tbCR.innerHTML+=`<tr><td>${i+1}</td><td style="font-weight:600">${d.n}</td><td>${d.v}</td><td><span class="bd ${d.imp>=25?'bg':d.imp>0?'ba':'br'}">${d.imp>=0?'+':''}${d.imp}%</span></td><td>₹${(d.mr/100000).toFixed(1)}L</td><td>₹${(d.rev/100000).toFixed(1)}L</td><td style="font-weight:700;color:${d.rd>=0?'var(--green)':'var(--rose)'}">₹${(d.rd/1000).toFixed(1)}K</td><td>${d.fa>0?d.fa+'%':'—'}</td><td>${p}</td></tr>`;});
+
+// Floor
+const flD=D.filter(d=>d.fa>0).sort((a,b)=>b.fa-a.fa);
+new Chart(document.getElementById('c2'),{type:'bar',data:{labels:flD.map(d=>d.n.split(' ')[0]),datasets:[{data:flD.map(d=>d.fa),backgroundColor:flD.map(d=>d.fa>=100?'#10B981':'#F43F5E'),borderRadius:4}]},options:{plugins:{legend:{display:false}},scales:{x:{ticks:{font:{size:9},maxRotation:45}},y:{beginAtZero:true}}},plugins:[{afterDraw(ch){const ctx=ch.ctx,y=ch.scales.y,px=y.getPixelForValue(100);ctx.save();ctx.strokeStyle='rgba(255,255,255,0.3)';ctx.lineWidth=1.5;ctx.setLineDash([5,3]);ctx.beginPath();ctx.moveTo(ch.scales.x.left,px);ctx.lineTo(ch.scales.x.right,px);ctx.stroke();ctx.fillStyle='rgba(255,255,255,0.35)';ctx.font='10px Inter';ctx.fillText('100% Floor',ch.scales.x.left+4,px-6);ctx.restore();}}]});
+
+const flR=D.filter(d=>d.fa>0).sort((a,b)=>(b.rev-b.fr)-(a.rev-a.fr));
+new Chart(document.getElementById('c4'),{type:'bar',data:{labels:flR.map(d=>d.n.split(' ')[0]),datasets:[{data:flR.map(d=>Math.round((d.rev-d.fr)/1000)),backgroundColor:flR.map(d=>d.rev>=d.fr?'#10B981':'#F43F5E'),borderRadius:4}]},options:{plugins:{legend:{display:false}},scales:{x:{ticks:{font:{size:9},maxRotation:45}},y:{title:{display:true,text:'₹K'}}}}});
+
+const bks={'3-6M':{c:0,i:0,b:0},'6-9M':{c:0,i:0,b:0},'9-12M':{c:0,i:0,b:0},'12+M':{c:0,i:0,b:0}};
+D.forEach(d=>{bks[d.bk].c++;if(d.imp>0)bks[d.bk].i++;if(d.imp>=25)bks[d.bk].b++;});
+const bkL=Object.keys(bks);
+new Chart(document.getElementById('c5'),{type:'bar',data:{labels:bkL.map(b=>b+' ('+bks[b].c+')'),datasets:[{label:'Any Improvement',data:bkL.map(b=>Math.round(bks[b].i/bks[b].c*100)),backgroundColor:'#06B6D4',borderRadius:4},{label:'Benchmark ≥25%',data:bkL.map(b=>Math.round(bks[b].b/bks[b].c*100)),backgroundColor:'#10B981',borderRadius:4}]},options:{plugins:{legend:{position:'top',labels:{usePointStyle:true,pointStyle:'circle',font:{size:10}}}},scales:{y:{beginAtZero:true,max:100,title:{display:true,text:'%'}}}}});
+
+const gI=D.filter(d=>d.l==='GGN'&&d.imp>=25).length,gM=D.filter(d=>d.l==='GGN'&&d.imp>0&&d.imp<25).length,gD=D.filter(d=>d.l==='GGN'&&d.imp<=0).length;
+const lI=D.filter(d=>d.l==='LKO'&&d.imp>=25).length,lM=D.filter(d=>d.l==='LKO'&&d.imp>0&&d.imp<25).length,lD=D.filter(d=>d.l==='LKO'&&d.imp<=0).length;
+new Chart(document.getElementById('c7'),{type:'bar',data:{labels:['Gurugram ('+(gI+gM+gD)+')','Lucknow ('+(lI+lM+lD)+')'],datasets:[{label:'Benchmark ≥25%',data:[gI,lI],backgroundColor:'#10B981',borderRadius:4},{label:'Improved 1–24%',data:[gM,lM],backgroundColor:'#06B6D4',borderRadius:4},{label:'Declined',data:[gD,lD],backgroundColor:'#F43F5E',borderRadius:4}]},options:{plugins:{legend:{position:'top',labels:{usePointStyle:true,pointStyle:'circle',font:{size:10}}}},scales:{x:{stacked:true},y:{stacked:true,beginAtZero:true}}}});
+
+// Tables
+function rr(tid,arr){const tb=document.getElementById(tid);arr.forEach((d,i)=>{const bc=d.imp>=25?'bg':d.imp>0?'ba':'br';const vl=d.imp>=25?'Benchmark ✓':d.imp>0?'Improved':'Declined';
+tb.innerHTML+=`<tr><td>${i+1}</td><td style="font-weight:600">${d.n}</td><td>${d.v}</td><td>${d.l}</td><td>${d.t}</td><td>${d.mc}%</td><td>${d.jc}%</td><td><span class="bd ${bc}">${d.imp>=0?'+':''}${d.imp}%</span></td><td>₹${(d.mr/100000).toFixed(1)}L</td><td>₹${(d.rev/100000).toFixed(1)}L</td><td style="font-weight:700;color:${d.rd>=0?'var(--green)':'var(--rose)'}">₹${d.rd>=0?'+':''}${(d.rd/1000).toFixed(1)}K</td><td>${d.fa>0?d.fa+'%':'—'}</td><td><span class="bd ${bc}">${vl}</span></td></tr>`;});}
+rr('tb1',[...D].filter(d=>d.imp>=BM).sort((a,b)=>b.imp-a.imp));
+rr('tb2',[...D].filter(d=>d.imp>0&&d.imp<BM).sort((a,b)=>b.imp-a.imp));
+rr('tb3',[...D].filter(d=>d.imp<=0).sort((a,b)=>a.imp-b.imp));
+
+// Trainers
+const TR={};D.forEach(d=>{if(!TR[d.t])TR[d.t]={c:0,ai:0,bi:0,dc:0,r:0,mr:0,im:[]};TR[d.t].c++;TR[d.t].r+=d.rev;TR[d.t].mr+=d.mr;TR[d.t].im.push(d.imp);if(d.imp>0)TR[d.t].ai++;if(d.imp>=25)TR[d.t].bi++;if(d.imp<0)TR[d.t].dc++;});
+const tC=document.getElementById('trC');
+Object.entries(TR).forEach(([k,v])=>{const avg=(v.im.reduce((a,b)=>a+b,0)/v.im.length).toFixed(1);const delta=v.r-v.mr;
+tC.innerHTML+=`<div class="trc"><div class="trn">${k}</div>
+<div class="tr-dual">
+  <div class="td-item"><div class="td-lb">Any Improvement</div><div class="td-vl" style="color:var(--green)">${v.ai}/${v.c}</div><div class="td-pc">${Math.round(v.ai/v.c*100)}% improved</div></div>
+  <div class="td-item"><div class="td-lb">Benchmark ≥25%</div><div class="td-vl" style="color:var(--amber)">${v.bi}/${v.c}</div><div class="td-pc">${Math.round(v.bi/v.c*100)}% crossed</div></div>
+</div>
+<div class="trr"><span class="trl">Declined</span><span class="trv" style="color:var(--rose)">${v.dc}</span></div>
+<div class="trr"><span class="trl">Avg Improvement</span><span class="trv">${avg}%</span></div>
+<div class="trr"><span class="trl">Best Result</span><span class="trv">${Math.max(...v.im)}%</span></div>
+<div class="trr"><span class="trl">May Revenue</span><span class="trv">₹${(v.mr/100000).toFixed(1)}L</span></div>
+<div class="trr"><span class="trl">June Revenue</span><span class="trv">₹${(v.r/100000).toFixed(1)}L</span></div>
+<div class="trr"><span class="trl">Revenue Delta</span><span class="trv" style="color:${delta>=0?'var(--green)':'var(--rose)'}">₹${delta>=0?'+':''}${(delta/100000).toFixed(2)}L</span></div>
+</div>`;});
+
+const tK=Object.keys(TR);
+new Chart(document.getElementById('c8'),{type:'bar',data:{labels:tK,datasets:[
+{label:'Any Improvement %',data:tK.map(k=>Math.round(TR[k].ai/TR[k].c*100)),backgroundColor:'#06B6D4',borderRadius:4},
+{label:'Benchmark ≥25% %',data:tK.map(k=>Math.round(TR[k].bi/TR[k].c*100)),backgroundColor:'#10B981',borderRadius:4},
+{label:'Rev Δ ₹L',data:tK.map(k=>((TR[k].r-TR[k].mr)/100000).toFixed(2)),backgroundColor:'#F59E0B',borderRadius:4,yAxisID:'y1'}
+]},options:{plugins:{legend:{position:'top',labels:{usePointStyle:true,pointStyle:'circle'}}},scales:{y:{beginAtZero:true,max:100,title:{display:true,text:'%'},position:'left'},y1:{title:{display:true,text:'₹L'},position:'right',grid:{drawOnChartArea:false}}}}});
+</script>
+</body>
+</html>

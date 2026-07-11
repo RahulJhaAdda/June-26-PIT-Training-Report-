@@ -265,6 +265,20 @@ tbody tr{transition:background .2s;}tbody tr:hover{background:rgba(255,255,255,0
 <!-- ===== FLOOR ===== -->
 <div class="sec" id="s-fl">
 <div class="wrap">
+
+  <!-- New vs Old Split -->
+  <div class="sh"><div class="bar" style="background:linear-gradient(180deg,var(--cyan),rgba(6,182,212,0.3))"></div><h2>New Joiners (<3 Months) vs Old Candidates (≥3 Months)</h2><span class="bsm">Ratio 5 : 15</span></div>
+
+  <div class="imp-ban">
+    <div class="imp-bx t1"><div class="imp-ic">🆕</div><div class="imp-lb">New Joiners (< 3 Months) — 5 Candidates</div><div class="imp-nm">3 / 5</div><div class="imp-pc">60% Crossed Benchmark</div><div class="imp-ds">Avg Improvement: 44.6% · Rev Growth: +₹1.61L · Per-person: ₹32.2K/head<br>Top: Swati +105%, Devendra +64%, Shakeel +56%</div></div>
+    <div class="imp-bx t2" style="--grad-from:var(--m2);--grad-to:var(--blue);"><div class="imp-ic">👤</div><div class="imp-lb">Old Candidates (≥ 3 Months) — 15 Candidates</div><div class="imp-nm">8 / 15</div><div class="imp-pc">53% Crossed Benchmark</div><div class="imp-ds">Avg Improvement: 39.9% · Rev Growth: +₹3.96L · Per-person: ₹26.4K/head<br>Top: Arjun +168%, Ravi +100%, Prabhat +93%</div></div>
+  </div>
+
+  <div class="cg2">
+    <div class="cp"><h3>New vs Old — Benchmark & Improvement Comparison</h3><canvas id="cNO"></canvas></div>
+    <div class="cp"><h3>Revenue Growth Per Person (₹K)</h3><canvas id="cNOR"></canvas></div>
+  </div>
+
   <div class="sh"><div class="bar"></div><h2>Floor Performance</h2><span class="bsm">17 with floor data</span></div>
   <div class="cg2">
     <div class="cp"><h3>Floor Achievement % — 100% = Floor Average</h3><canvas id="c2"></canvas></div>
@@ -371,6 +385,23 @@ new Chart(document.getElementById('cRG'),{type:'doughnut',data:{labels:['Rev Up 
 const tbCR=document.getElementById('tbCR');
 [...D].sort((a,b)=>b.rd-a.rd).forEach((d,i)=>{let p='';if(d.imp>=25&&d.rd>0)p='<span class="bd bg">Conv ↑ Rev ↑</span>';else if(d.imp>=25&&d.rd<=0)p='<span class="bd by">Conv ↑ Rev ↓</span>';else if(d.imp>0&&d.rd>0)p='<span class="bd bg">Improved ↑</span>';else if(d.imp>0&&d.rd<=0)p='<span class="bd by">Conv ↑ Rev ↓</span>';else if(d.imp<0&&d.rd>0)p='<span class="bd by">Conv ↓ Rev ↑</span>';else p='<span class="bd br">Both ↓</span>';
 tbCR.innerHTML+=`<tr><td>${i+1}</td><td style="font-weight:600">${d.n}</td><td>${d.v}</td><td><span class="bd ${d.imp>=25?'bg':d.imp>0?'ba':'br'}">${d.imp>=0?'+':''}${d.imp}%</span></td><td>₹${(d.mr/100000).toFixed(1)}L</td><td>₹${(d.rev/100000).toFixed(1)}L</td><td style="font-weight:700;color:${d.rd>=0?'var(--green)':'var(--rose)'}">₹${(d.rd/1000).toFixed(1)}K</td><td>${d.fa>0?d.fa+'%':'—'}</td><td>${p}</td></tr>`;});
+
+// New vs Old charts
+// New joiners: DOJ March 2026+ = Nitesh, Shakeel, Devendra, Saumya, Swati
+const newJ=['Nitesh Chaturvedi','Shakeel Ahmed','DEVENDRA VERMA','Saumya Singh','Swati Maurya'];
+const nD=D.filter(d=>newJ.includes(d.n)),oD=D.filter(d=>!newJ.includes(d.n));
+const nBM=nD.filter(d=>d.imp>=25).length,oBM=oD.filter(d=>d.imp>=25).length;
+const nAvg=(nD.reduce((a,d)=>a+d.imp,0)/nD.length),oAvg=(oD.reduce((a,d)=>a+d.imp,0)/oD.length);
+const nAny=nD.filter(d=>d.imp>0).length,oAny=oD.filter(d=>d.imp>0).length;
+
+new Chart(document.getElementById('cNO'),{type:'bar',data:{labels:['Benchmark ≥25%','Any Improvement','Avg Improvement %'],datasets:[
+{label:'New Joiners (<3M)',data:[nBM/nD.length*100,nAny/nD.length*100,nAvg.toFixed(1)],backgroundColor:'#06B6D4',borderRadius:4},
+{label:'Old Candidates (≥3M)',data:[oBM/oD.length*100,oAny/oD.length*100,oAvg.toFixed(1)],backgroundColor:'rgba(255,255,255,0.12)',borderRadius:4}
+]},options:{plugins:{legend:{position:'top',labels:{usePointStyle:true,pointStyle:'circle',font:{size:10}}}},scales:{y:{beginAtZero:true,max:100,title:{display:true,text:'%'}}}}});
+
+const nRPP=nD.reduce((a,d)=>a+d.rd,0)/nD.length/1000;
+const oRPP=oD.reduce((a,d)=>a+d.rd,0)/oD.length/1000;
+new Chart(document.getElementById('cNOR'),{type:'bar',data:{labels:['New Joiners (<3M)\n5 candidates','Old Candidates (≥3M)\n15 candidates'],datasets:[{label:'₹K per person',data:[nRPP.toFixed(1),oRPP.toFixed(1)],backgroundColor:['#06B6D4','rgba(255,255,255,0.12)'],borderRadius:6,barThickness:50}]},options:{plugins:{legend:{display:false},tooltip:{callbacks:{label:ctx=>'₹'+ctx.raw+'K per person'}}},scales:{y:{beginAtZero:true,title:{display:true,text:'₹ Thousands / person'}}}}});
 
 // Floor
 const flD=D.filter(d=>d.fa>0).sort((a,b)=>b.fa-a.fa);
